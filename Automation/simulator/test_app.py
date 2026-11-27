@@ -1,5 +1,8 @@
 import pytest
+#from concurrent.futures import ThreadPoolExecutor
+import xdist
 from app import app
+import threading
 
 @pytest.fixture
 def client():
@@ -33,3 +36,26 @@ def test_get_equipment_id(client):
     assert data["name"] == "navigation system"
     assert data["status"] == "operational"
     assert data["type"] == "NS"
+
+
+"""def test_get_equipment_concurrently():
+    def fetch_equipment(equipment_id):
+        with app.test_client() as thread_client:
+            response = thread_client.get(f"/api/equipment/{equipment_id}")
+            return response.status_code, response.get_json()
+
+    app.config["Testing"] = True
+    equipment_ids = [101, 102, 103]
+
+    with ThreadPoolExecutor(max_workers=len(equipment_ids)) as executor:
+        responses = list(executor.map(fetch_equipment, equipment_ids))
+
+    assert all(status_code == 200 for status_code, _ in responses)
+    assert [data["id"] for _, data in responses] == equipment_ids"""
+
+t1=threading.Thread(target=test_get_equipment)
+t2=threading.Thread(target=test_get_equipment_id)
+t1.start()
+t2.start()
+t1.join()
+t2.join()
