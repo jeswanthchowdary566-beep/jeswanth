@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 7.5.1 (Python 3.12.10 on win32)" generated="2026-11-27T23:05:13.864290" rpa="false" schemaversion="5">
+<suite id="s1" name="Test2" source="C:\PythonProject\Robot_API_Project\tests\test2.robot">
+<kw name="Create API Session" owner="equipment_keyword" type="SETUP">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2026-11-27T23:05:14.120722" level="INFO">Creating Session using : alias=Equipment_API, url=http://127.0.0.1:5000, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<arg>Equipment_API</arg>
+<arg>${BASE_URL}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2026-11-27T23:05:14.120722" elapsed="0.001008"/>
+</kw>
+<status status="PASS" start="2026-11-27T23:05:14.119721" elapsed="0.002009"/>
+</kw>
+<test id="s1-t1" name="Test Get All Equipment" line="6">
+<kw name="Log To Console" owner="BuiltIn">
+<arg>Test1 Started</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2026-11-27T23:05:14.121730" elapsed="0.000989"/>
+</kw>
+<kw name="Get All Equipment" owner="equipment_keyword">
+<msg time="2026-11-27T23:05:14.122719" level="FAIL">Keyword 'equipment_keyword.Get All Equipment' expected 0 arguments, got 1.</msg>
+<var>${response}</var>
+<arg>200</arg>
+<status status="FAIL" start="2026-11-27T23:05:14.122719" elapsed="0.000000">Keyword 'equipment_keyword.Get All Equipment' expected 0 arguments, got 1.</status>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<var>${data}</var>
+<arg>${response.json()}</arg>
+<doc>Returns the given values which can then be assigned to a variable.</doc>
+<status status="NOT RUN" start="2026-11-27T23:05:14.123719" elapsed="0.000000"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<arg>${response.status_code}</arg>
+<arg>200</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="NOT RUN" start="2026-11-27T23:05:14.123719" elapsed="0.000000"/>
+</kw>
+<kw name="Length Should Be" owner="BuiltIn">
+<arg>${data}</arg>
+<arg>3</arg>
+<doc>Verifies that the length of the given item is correct.</doc>
+<status status="NOT RUN" start="2026-11-27T23:05:14.124724" elapsed="0.000000"/>
+</kw>
+<status status="FAIL" start="2026-11-27T23:05:14.121730" elapsed="0.002994">Keyword 'equipment_keyword.Get All Equipment' expected 0 arguments, got 1.</status>
+</test>
+<test id="s1-t2" name="TC1_BYID" line="12">
+<kw name="Log To Console" owner="BuiltIn">
+<arg>Test2 Started</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2026-11-27T23:05:14.125721" elapsed="0.000998"/>
+</kw>
+<kw name="Get Equipment by id" owner="equipment_keyword">
+<kw name="GET On Session" owner="RequestsLibrary">
+<msg time="2026-11-27T23:05:14.134621" level="INFO">GET Request : url=http://127.0.0.1:5000/api/equipment 
+ path_url=/api/equipment 
+ headers={'User-Agent': 'python-requests/2.34.2', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive'} 
+ body=None 
+ </msg>
+<msg time="2026-11-27T23:05:14.134621" level="INFO">GET Response : url=http://127.0.0.1:5000/api/equipment 
+ status=200, reason=OK 
+ headers={'Server': 'Werkzeug/3.1.9 Python/3.12.10', 'Date': 'Fri, 27 Nov 2026 10:05:14 GMT', 'Content-Type': 'application/json', 'Content-Length': '225', 'Connection': 'close'} 
+ body=[{"id":101,"name":"flight control unit","status":"operational","type":"fcu"},{"id":102,"name":"navigation system","status":"operational","type":"NS"},{"id":103,"name":"application system","status":"operational","type":"as"}]
+ 
+ </msg>
+<msg time="2026-11-27T23:05:14.135621" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<var>${response}</var>
+<arg>Equipment_API</arg>
+<arg>/api/equipment</arg>
+<arg>expected_status=${expected_status}</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2026-11-27T23:05:14.127612" elapsed="0.008009"/>
+</kw>
+<return>
+<value>${response}</value>
+<status status="PASS" start="2026-11-27T23:05:14.135621" elapsed="0.000000"/>
+</return>
+<msg time="2026-11-27T23:05:14.135621" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<var>${response}</var>
+<arg>101</arg>
+<arg>200</arg>
+<status status="PASS" start="2026-11-27T23:05:14.126719" elapsed="0.008902"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2026-11-27T23:05:14.136621" level="INFO">${data} = [{'id': 101, 'name': 'flight control unit', 'status': 'operational', 'type': 'fcu'}, {'id': 102, 'name': 'navigation system', 'status': 'operational', 'type': 'NS'}, {'id': 103, 'name': 'application s...</msg>
+<var>${data}</var>
+<arg>${response.json()}</arg>
+<doc>Returns the given values which can then be assigned to a variable.</doc>
+<status status="PASS" start="2026-11-27T23:05:14.135621" elapsed="0.001000"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<msg time="2026-11-27T23:05:14.137619" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${response.status_code}</arg>
+<arg>200</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2026-11-27T23:05:14.137619" elapsed="0.000000"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<msg time="2026-11-27T23:05:14.138618" level="FAIL">List '${data}' used with invalid index 'id'. To use '[id]' as a literal value, it needs to be escaped like '\[id]'.</msg>
+<arg>${data}[id]</arg>
+<arg>101</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="FAIL" start="2026-11-27T23:05:14.137619" elapsed="0.000999">List '${data}' used with invalid index 'id'. To use '[id]' as a literal value, it needs to be escaped like '\[id]'.</status>
+</kw>
+<status status="FAIL" start="2026-11-27T23:05:14.125721" elapsed="0.012897">List '${data}' used with invalid index 'id'. To use '[id]' as a literal value, it needs to be escaped like '\[id]'.</status>
+</test>
+<status status="FAIL" start="2026-11-27T23:05:13.864290" elapsed="0.275331"/>
+</suite>
+<statistics>
+<total>
+<stat pass="0" fail="2" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat name="Test2" id="s1" pass="0" fail="2" skip="0">Test2</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
